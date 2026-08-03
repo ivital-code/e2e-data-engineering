@@ -1,16 +1,26 @@
 # example programa to connect to snowflake
 # setup environment variables in windows
-#cmd.exe /c "set SNOWFLAKE_USER=snf_srvacc&& set SNOWFLAKE_PASSWORD=Laspalmas25011965$&& set SNOWFLAKE_ACCOUNT=ohwwdyr-vk51395&& set SNOWFLAKE_WAREHOUSE=COMPUTE_WH&& set SNOWFLAKE_DATABASE=AIRBNB&& set SNOWFLAKE_SCHEMA=DEV&& set SNOWFLAKE_ROLE=MY_SERVICE_ROLE&& cd /d C:\Users\52332\e2e-data-engineering&& .venv\Scripts\python.exe snowflake_connection.py"
+# cmd.exe /c "set SNOWFLAKE_USER=snf_srvacc&& set SNOWFLAKE_PASSWORD=Laspalmas25011965$&& set SNOWFLAKE_ACCOUNT=ohwwdyr-vk51395&& set SNOWFLAKE_WAREHOUSE=COMPUTE_WH&& set SNOWFLAKE_DATABASE=AIRBNB&& set SNOWFLAKE_SCHEMA=DEV&& set SNOWFLAKE_ROLE=MY_SERVICE_ROLE&& cd /d C:\Users\52332\e2e-data-engineering&& python snowflake_connection.py"
+
 import os
 import snowflake.connector
+
+
+def get_required_env_var(name: str) -> str:
+    value = os.environ.get(name)
+    if not value:
+        raise EnvironmentError(
+            f"Missing required environment variable for Snowflake connection: {name}"
+        )
+    return value
 
 
 def get_snowflake_connection():
     """Create and return a Snowflake connection using environment variables."""
     return snowflake.connector.connect(
-        user=os.environ.get("SNOWFLAKE_USER"),
-        password=os.environ.get("SNOWFLAKE_PASSWORD"),
-        account=os.environ.get("SNOWFLAKE_ACCOUNT"),
+        user=get_required_env_var("SNOWFLAKE_USER"),
+        password=get_required_env_var("SNOWFLAKE_PASSWORD"),
+        account=get_required_env_var("SNOWFLAKE_ACCOUNT"),
         warehouse=os.environ.get("SNOWFLAKE_WAREHOUSE"),
         database=os.environ.get("SNOWFLAKE_DATABASE"),
         schema=os.environ.get("SNOWFLAKE_SCHEMA"),
