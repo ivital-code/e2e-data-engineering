@@ -114,7 +114,7 @@ def main():
 
     print("\nRunning SQLAlchemy Snowflake example...")
     sa_rows = run_sqlalchemy_query(query)
-    print(sa_rows)
+    print(sa_rows,[2])
 
 
 if __name__ == "__main__":
