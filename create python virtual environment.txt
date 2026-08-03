@@ -1,3 +1,8 @@
+docker compose -f docker-compose.yml up -d
+
+http://localhost:9080
+
+
 https://github.com/ivital-code/e2e-data-engineering
 
 create python virtual environment

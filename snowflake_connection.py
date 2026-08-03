@@ -34,6 +34,6 @@ def main():
         print("Snowflake connection failed:", exc)
         raise
 
-
+# Run it with: python snowflake_connection.py
 if __name__ == "__main__":
     main()
