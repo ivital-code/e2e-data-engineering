@@ -1,3 +1,4 @@
+# example programa to connect to snowflake
 import os
 import snowflake.connector
 
