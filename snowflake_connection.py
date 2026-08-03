@@ -1,3 +1,7 @@
+
+# gitlab repo: https://gitlab.com/ivital-code/e2e-data-engineering
+#https://github.com/ivital-code/e2e-data-engineering
+
 # example programa to connect to snowflake
 # setup environment variables in windows
 #Alternative PowerShell inline env vars
