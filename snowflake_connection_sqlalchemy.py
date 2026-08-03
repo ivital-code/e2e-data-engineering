@@ -1,5 +1,4 @@
 #"""Snowflake Python examples.
-
 #This file shows two open-source connection patterns:
 #1. Raw driver: snowflake-connector-python
 #2. SQLAlchemy dialect: snowflake-sqlalchemy
