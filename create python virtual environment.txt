@@ -1,4 +1,7 @@
 create python virtual environment
+
+activate virtual environment
+
 install zookeeper service image on local docker
 
 install zookeeper service image on local docker
@@ -9,3 +12,16 @@ if (-not (Test-Path .\.venv\Scripts\python.exe)) { py -m venv .venv }; & .\.venv
 & .\.venv\Scripts\python.exe -c "from importlib.metadata import version; print(version('apache-airflow'))"
 
 & c:\Users\52332\e2e-data-engineering\.venv\Scripts\python.exe c:/Users/52332/e2e-data-engineering/dags/kafka_stream.py
+
+docker compose -f docker-compose.yml up -d
+docker compose
+Uses Docker Compose V2 to manage multi-container applications.
+-f docker-compose.yml
+Specifies the Compose file to use.
+If omitted, Docker Compose looks for docker-compose.yml or docker-compose.yaml in the current directory.
+up
+Creates and starts the services defined in the Compose file.
+It also creates networks and volumes if needed.
+-d
+Runs the containers in detached mode.
+The command returns immediately and the services keep running in the background
