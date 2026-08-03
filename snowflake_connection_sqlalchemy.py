@@ -4,7 +4,8 @@
 #2. SQLAlchemy dialect: snowflake-sqlalchemy
 
 #Requirements:
-#  pip install snowflake-connector-python snowflake-sqlalchemy sqlalchemy
+#  pip install snowflake-connector-python 
+#  pip install snowflake-sqlalchemy sqlalchemy
 
 #Environment variables:
 #  SNOWFLAKE_USER
