@@ -106,7 +106,7 @@ def run_sqlalchemy_query(query: str) -> List[tuple]:
 
 def main():
     # query = "SELECT current_version() AS version"
-    query = "select REVIEWER_NAME,REVIEW_TEXT from AIRBNB.DEV.FCT_REVIEWS fetch first 3 rows only"; 
+    query = "select REVIEWER_NAME,REVIEW_TEXT from AIRBNB.DEV.FCT_REVIEWS fetch first 10 rows only"; 
    
     print("Running raw Snowflake connector example...")
     raw_rows = run_raw_query(query)
@@ -114,7 +114,7 @@ def main():
 
     print("\nRunning SQLAlchemy Snowflake example...")
     sa_rows = run_sqlalchemy_query(query)
-    print(sa_rows,[2])
+    print(sa_rows)
 
 
 if __name__ == "__main__":
