@@ -76,13 +76,6 @@ def get_snowflake_connection() -> snowflake.connector.SnowflakeConnection:
     )
 
 
-def run_raw_query(query: str) -> List[tuple]:
-    with get_snowflake_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute(query)
-            return cur.fetchall()
-
-
 def get_sqlalchemy_engine():
     url = URL(
         user=get_required_env_var("SNOWFLAKE_USER"),
@@ -95,6 +88,13 @@ def get_sqlalchemy_engine():
     )
     return create_engine(url)
 
+def run_raw_query(query: str) -> List[tuple]:
+    with get_snowflake_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(query)
+            return cur.fetchall()
+
+
 
 def run_sqlalchemy_query(query: str) -> List[tuple]:
     engine = get_sqlalchemy_engine()
@@ -104,8 +104,9 @@ def run_sqlalchemy_query(query: str) -> List[tuple]:
 
 
 def main():
-    query = "SELECT current_version() AS version"
-
+    # query = "SELECT current_version() AS version"
+    query = "select REVIEWER_NAME,REVIEW_TEXT from AIRBNB.DEV.FCT_REVIEWS fetch first 3 rows only"; 
+   
     print("Running raw Snowflake connector example...")
     raw_rows = run_raw_query(query)
     print(raw_rows)
