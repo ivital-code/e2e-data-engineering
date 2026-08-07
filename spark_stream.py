@@ -1,9 +1,18 @@
 import logging
 
-from cassandra.cluster import Cluster
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import from_json, col
-from pyspark.sql.types import StructType, StructField, StringType
+try:
+    from cassandra.cluster import Cluster  # type: ignore[import-not-found]
+except ImportError:  # pragma: no cover
+    Cluster = None  # type: ignore[assignment]
+
+try:
+    from pyspark.sql import SparkSession  # type: ignore[import-not-found]
+    from pyspark.sql.functions import from_json, col  # type: ignore[import-not-found]
+    from pyspark.sql.types import StructType, StructField, StringType  # type: ignore[import-not-found]
+except ImportError:  # pragma: no cover
+    SparkSession = None  # type: ignore[assignment]
+    from_json = col = None  # type: ignore[assignment]
+    StructType = StructField = StringType = None  # type: ignore[assignment]
 
 
 def create_keyspace(session):
