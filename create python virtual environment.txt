@@ -2,6 +2,9 @@ docker compose -f docker-compose.yml up -d
 
 http://localhost:9080
 
+Origin: https://github.com/ivital-code/e2e-data-engineering.git
+Upstream: https://github.com/airscholar/e2e-data-engineering
+
 
 https://github.com/ivital-code/e2e-data-engineering
 
