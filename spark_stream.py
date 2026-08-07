@@ -75,6 +75,13 @@ def insert_data(session, **kwargs):
 def create_spark_connection():
     s_conn = None
 
+    if SparkSession is None:
+        logging.error(
+            "pyspark is not installed or could not be imported. "
+            "Install it with `pip install pyspark==3.4.1` and retry."
+        )
+        return None
+
     try:
         s_conn = SparkSession.builder \
             .appName('SparkDataStreaming') \

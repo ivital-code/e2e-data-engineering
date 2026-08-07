@@ -7,7 +7,7 @@ https://github.com/ivital-code/e2e-data-engineering
 
 create python virtual environment
 
-activate virtual environment
+activate python virtual environment
 
 install zookeeper service image on local docker
 
