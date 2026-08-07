@@ -75,6 +75,7 @@ def insert_data(session, **kwargs):
 def create_spark_connection():
     s_conn = None
 
+
     if SparkSession is None:
         logging.error(
             "pyspark is not installed or could not be imported. "
