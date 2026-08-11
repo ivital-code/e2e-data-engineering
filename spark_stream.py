@@ -1,4 +1,31 @@
 import logging
+import os
+from pathlib import Path
+
+DEFAULT_HADOOP_HOME = Path.home() / "hadoop-home"
+
+
+def ensure_hadoop_winutils():
+    """Set up a minimal Windows Hadoop home so Spark can boot locally.
+
+    Spark on Windows requires both HADOOP_HOME and hadoop.home.dir to be set, and
+    it expects a bin/winutils.exe file at the configured Hadoop home. Creating a
+    lightweight placeholder keeps the app runnable in local development without
+    requiring a full Hadoop installation.
+    """
+    hadoop_home = Path(os.environ.get("HADOOP_HOME") or str(DEFAULT_HADOOP_HOME))
+    hadoop_home = hadoop_home.expanduser().resolve()
+    bin_dir = hadoop_home / "bin"
+    winutils = bin_dir / "winutils.exe"
+
+    bin_dir.mkdir(parents=True, exist_ok=True)
+    if not winutils.exists():
+        winutils.write_bytes(b"")
+
+    os.environ["HADOOP_HOME"] = str(hadoop_home)
+    os.environ["hadoop.home.dir"] = str(hadoop_home)
+    return hadoop_home
+
 
 try:
     from cassandra.cluster import Cluster  # type: ignore[import-not-found]
@@ -75,7 +102,6 @@ def insert_data(session, **kwargs):
 def create_spark_connection():
     s_conn = None
 
-
     if SparkSession is None:
         logging.error(
             "pyspark is not installed or could not be imported. "
@@ -84,11 +110,15 @@ def create_spark_connection():
         return None
 
     try:
+        ensure_hadoop_winutils()
+
         s_conn = SparkSession.builder \
+            .master('local[*]') \
             .appName('SparkDataStreaming') \
-            .config('spark.jars.packages', "com.datastax.spark:spark-cassandra-connector_2.13:3.4.1,"
-                                           "org.apache.spark:spark-sql-kafka-0-10_2.13:3.4.1") \
+            .config('spark.jars.packages', "com.datastax.spark:spark-cassandra-connector_2.12:3.4.1,"
+                                           "org.apache.spark:spark-sql-kafka-0-10_2.12:3.4.1") \
             .config('spark.cassandra.connection.host', 'localhost') \
+            .config('spark.sql.shuffle.partitions', '1') \
             .getOrCreate()
 
         s_conn.sparkContext.setLogLevel("ERROR")
