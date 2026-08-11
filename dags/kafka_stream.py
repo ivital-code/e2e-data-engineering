@@ -38,11 +38,13 @@ def format_data(res):
 
 def stream_data():
     import json
+    import os
     from kafka import KafkaProducer
     import time
     import logging
 
-    producer = KafkaProducer(bootstrap_servers=['broker:29092'], max_block_ms=5000)
+    bootstrap_servers = os.getenv('KAFKA_BOOTSTRAP_SERVERS', 'localhost:9092')
+    producer = KafkaProducer(bootstrap_servers=[bootstrap_servers], max_block_ms=5000)
     curr_time = time.time()
 
     while True:

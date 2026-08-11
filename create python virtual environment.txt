@@ -1,3 +1,5 @@
+user /password airflow admin 7admin
+
 docker compose -f docker-compose.yml up -d
 
 http://localhost:9080
