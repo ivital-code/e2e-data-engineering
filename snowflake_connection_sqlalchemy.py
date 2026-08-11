@@ -1,3 +1,4 @@
+# run snowflake_connection_sqlalchemy.py
 #"""Snowflake Python examples.
 #This file shows two open-source connection patterns:
 #1. Raw driver: snowflake-connector-python
@@ -105,7 +106,7 @@ def run_sqlalchemy_query(query: str) -> List[tuple]:
 
 def main():
     # query = "SELECT current_version() AS version"
-    query = "select REVIEWER_NAME,REVIEW_TEXT from AIRBNB.DEV.FCT_REVIEWS fetch first 1 rows only"; 
+    query = "select REVIEWER_NAME,REVIEW_TEXT from AIRBNB.DEV.FCT_REVIEWS fetch first 5 rows only"; 
    
     print("Running raw Snowflake connector example...")
     raw_rows = run_raw_query(query)

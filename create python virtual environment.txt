@@ -13,6 +13,9 @@ https://github.com/ivital-code/e2e-data-engineering
 create python virtual environment
 
 activate python virtual environment
+
+activate python virtual environment venv39
+
 PS C:\Users\52332\e2e-data-engineering> (Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; 
 (& c:\Users\52332\e2e-data-engineering\.venv\Scripts\Activate.ps1)
 
