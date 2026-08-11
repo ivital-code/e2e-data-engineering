@@ -47,6 +47,22 @@ The project is designed with the following components:
 
 ## Getting Started
 
+Prerequisite for local Airflow runs on Windows:
+
+- Use Python 3.9 for Airflow 2.7 compatibility.
+- Use a dedicated virtual environment named `.venv39`.
+
+Example PowerShell setup:
+
+```powershell
+py -3.9 -m venv .venv39
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
+. .\.venv39\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python -c "import airflow; print(airflow.__version__)"
+```
+
 1. Clone the repository:
     ```bash
     git clone https://github.com/airscholar/e2e-data-engineering.git

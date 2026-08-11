@@ -7,6 +7,33 @@ http://localhost:9080
 Origin: https://github.com/ivital-code/e2e-data-engineering.git
 Upstream: https://github.com/airscholar/e2e-data-engineering
 
+https://www.youtube.com/watch?v=GqAcTrqKcrY
+
+This video is a comprehensive tutorial on building an end-to-end real-time data streaming pipeline using a modern stack of data engineering tools, all containerized with Docker (0:35, 1:27:32).
+
+System Architecture Overview:
+The project connects several key technologies to move data from an external source to a final database:
+
+Data Source: Uses the Random User Generator API to produce mock user data (0:57).
+Data Ingestion: Apache Airflow manages the DAG (Directed Acyclic Graph) to fetch data from the API intermittently (1:21).
+Message Broker: Data is streamed into Apache Kafka, which is managed by Apache Zookeeper (1:44).
+Processing: Apache Spark (with master-worker architecture) listens to the Kafka topics to process the incoming data (2:47).
+Storage: Processed data is finally stored in a Cassandra database (3:09).
+Key Implementation Phases:
+
+Environment Setup: Creating a docker-compose.yml file to orchestrate the services, including Zookeeper, Kafka, Schema Registry, and Control Center (17:10).
+Airflow Workflow: Developing a Python-based DAG to fetch data from the API and publish it to a Kafka topic (3:47).
+Kafka Integration: Setting up producers to send data into Kafka and visualizing it using the Confluent Control Center (26:09).
+Spark Streaming: Configuring Spark to consume data from Kafka and perform real-time transformations (44:29).
+Cassandra Storage: Writing the processed data into a Cassandra keyspace and table for final analysis (49:33).
+
+
+
+AI can make mistakes, so double-check it. Learn more
+What is the role of Zookeeper in Kafka?
+How does Apache Spark process streaming data?
+Why use Docker for data engineering projects?
+
 
 https://github.com/ivital-code/e2e-data-engineering
 
@@ -52,3 +79,35 @@ Runs the containers in detached mode.
 The command returns immediately and the services keep running in the background
 
 python.exe -m pip install --upgrade pip
+
+Airflow on Windows (recommended: Python 3.9 / .venv39)
+
+cd "C:\Users\52332\e2e-data-engineering"
+if (-not (Test-Path .\.venv39\Scripts\python.exe)) { py -3.9 -m venv .venv39 }
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
+. .\.venv39\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python -c "import airflow; print(airflow.__version__)"
+python dags\kafka_stream.py
+
+
+KAFKA_BOOTSTRAP_SERVERS=broker:29092 means:
+
+KAFKA_BOOTSTRAP_SERVERS
+This is the address your app uses to initially connect to Kafka and discover the cluster metadata.
+
+broker
+This is the Docker Compose service name for the Kafka container. Inside the same Compose network, containers resolve broker as a hostname automatically.
+
+29092
+This is usually the internal Kafka listener port used for container-to-container communication.
+
+Why this is common in Docker Compose:
+
+Apps running inside Compose use broker:29092.
+Apps running on your host machine usually cannot use broker, so they use localhost:9092 (or whatever host port is mapped).
+Quick rule:
+
+Inside Docker network: broker:29092
+Outside Docker network (host tools/scripts): localhost:9092

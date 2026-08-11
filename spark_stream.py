@@ -1,4 +1,5 @@
 # gitlab repo: https://github.com/ivital-code/e2e-data-engineering
+# forked from https://github.com/airscholar/e2e-data-engineering
 
 import logging
 import os
