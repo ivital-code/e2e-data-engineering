@@ -1,3 +1,5 @@
+# gitlab repo: https://github.com/ivital-code/e2e-data-engineering
+
 import logging
 import os
 from pathlib import Path

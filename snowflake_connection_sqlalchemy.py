@@ -31,6 +31,8 @@
 #$env:SNOWFLAKE_SCHEMA = "DEV"
 #$env:SNOWFLAKE_ROLE = "MY_SERVICE_ROLE"
 
+# Get-ChildItem Env:SNOWFLAKE_*
+
 # snowflake connection setup
 # create rol MY_SERVICE_ROLE;
 #CREATE or replace USER snf_srvacc
