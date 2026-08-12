@@ -1,8 +1,13 @@
 import os
+import sys
 import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 import spark_stream
 
@@ -35,6 +40,15 @@ class SparkStreamWindowsHadoopTests(unittest.TestCase):
                 os.environ["hadoop.home.dir"] = original_hadoop_home_dir
             else:
                 os.environ.pop("hadoop.home.dir", None)
+
+    def test_create_cassandra_connection_returns_none_when_driver_unavailable(self):
+        with patch.object(spark_stream, "Cluster", None), patch.object(
+            spark_stream, "CASSANDRA_IMPORT_ERROR", ImportError("missing cassandra-driver")
+        ), patch.object(spark_stream.logging, "error") as mock_error:
+            result = spark_stream.create_cassandra_connection()
+
+        self.assertIsNone(result)
+        mock_error.assert_called_once()
 
 
 if __name__ == "__main__":

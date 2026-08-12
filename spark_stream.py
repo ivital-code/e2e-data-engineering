@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 
 DEFAULT_HADOOP_HOME = Path.home() / "hadoop-home"
+CASSANDRA_IMPORT_ERROR = None
 
 
 def ensure_hadoop_winutils():
@@ -32,8 +33,9 @@ def ensure_hadoop_winutils():
 
 try:
     from cassandra.cluster import Cluster  # type: ignore[import-not-found]
-except ImportError:  # pragma: no cover
+except Exception as exc:  # pragma: no cover
     Cluster = None  # type: ignore[assignment]
+    CASSANDRA_IMPORT_ERROR = exc
 
 try:
     from pyspark.sql import SparkSession  # type: ignore[import-not-found]
@@ -149,6 +151,13 @@ def connect_to_kafka(spark_conn):
 
 
 def create_cassandra_connection():
+    if Cluster is None:
+        logging.error(
+            "cassandra-driver is not installed or could not be imported: %s",
+            CASSANDRA_IMPORT_ERROR,
+        )
+        return None
+
     try:
         # connecting to the cassandra cluster
         cluster = Cluster(['localhost'])
