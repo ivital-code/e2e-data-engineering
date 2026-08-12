@@ -1,22 +1,15 @@
-# gitlab repo: https://github.com/ivital-code/e2e-data-engineering
-# forked from https://github.com/airscholar/e2e-data-engineering
-
 import logging
 import os
 from pathlib import Path
+
+
 
 DEFAULT_HADOOP_HOME = Path.home() / "hadoop-home"
 CASSANDRA_IMPORT_ERROR = None
 
 
 def ensure_hadoop_winutils():
-    """Set up a minimal Windows Hadoop home so Spark can boot locally.
-
-    Spark on Windows requires both HADOOP_HOME and hadoop.home.dir to be set, and
-    it expects a bin/winutils.exe file at the configured Hadoop home. Creating a
-    lightweight placeholder keeps the app runnable in local development without
-    requiring a full Hadoop installation.
-    """
+    """Set up a minimal Windows Hadoop home so Spark can boot locally."""
     hadoop_home = Path(os.environ.get("HADOOP_HOME") or str(DEFAULT_HADOOP_HOME))
     hadoop_home = hadoop_home.expanduser().resolve()
     bin_dir = hadoop_home / "bin"
@@ -30,6 +23,12 @@ def ensure_hadoop_winutils():
     os.environ["hadoop.home.dir"] = str(hadoop_home)
     return hadoop_home
 
+from cassandra.io.libevreactor import LibevConnection
+from cassandra.cluster import Cluster
+
+cluster = Cluster()
+cluster.connection_class = LibevConnection
+session = cluster.connect()
 
 try:
     from cassandra.cluster import Cluster  # type: ignore[import-not-found]
@@ -116,12 +115,12 @@ def create_spark_connection():
 
     try:
         ensure_hadoop_winutils()
-
         s_conn = SparkSession.builder \
             .master('local[*]') \
             .appName('SparkDataStreaming') \
-            .config('spark.jars.packages', "com.datastax.spark:spark-cassandra-connector_2.12:3.4.1,"
-                                           "org.apache.spark:spark-sql-kafka-0-10_2.12:3.4.1") \
+            .config('spark.jars.packages',
+                    "com.datastax.spark:spark-cassandra-connector_2.12:3.4.1,"
+                    "org.apache.spark:spark-sql-kafka-0-10_2.12:3.4.1") \
             .config('spark.cassandra.connection.host', 'localhost') \
             .config('spark.sql.shuffle.partitions', '1') \
             .getOrCreate()
@@ -161,9 +160,7 @@ def create_cassandra_connection():
     try:
         # connecting to the cassandra cluster
         cluster = Cluster(['localhost'])
-
         cas_session = cluster.connect()
-
         return cas_session
     except Exception as e:
         logging.error(f"Could not create cassandra connection due to {e}")
@@ -201,6 +198,7 @@ if __name__ == "__main__":
         spark_df = connect_to_kafka(spark_conn)
         selection_df = create_selection_df_from_kafka(spark_df)
         session = create_cassandra_connection()
+
 
         if session is not None:
             create_keyspace(session)
