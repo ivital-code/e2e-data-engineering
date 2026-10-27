@@ -1,0 +1,60 @@
+MYSQL TO CLOUD MARIADB MIGRATION — CHECKLIST
+============================================
+
+This guide exports one local MySQL database and imports it into a separate cloud MariaDB database. The existing cloud sakila database already has tables and sample rows; do not overwrite it. Use a new, empty destination database (example: sakila_migrated).
+
+IMPORTANT SECURITY
+------------------
+- A database password was shared in chat. Rotate it before the migration.
+- Never put the password directly in a command, connection URL, this text file, or source control. Use the client's secure password prompt.
+- Keep the export file secure: it may contain personal or confidential data. Remove it securely when no longer needed.
+- Keep the original local database unchanged until the cloud copy is validated.
+
+1. CHECK THE SOURCE AND TARGET
+------------------------------
+On local MySQL, check its version and source database:
+
+    SELECT VERSION();
+    SHOW TABLES FROM local_database;
+
+Replace local_database with the actual local database name. Check the cloud MariaDB version and permissions through the registered MariaDB connection/MCP. Compare versions and look for MySQL 8-only features (for example utf8mb4_0900_* collations, JSON behavior, generated columns, routines, and authentication features) that may need adjustment for the cloud MariaDB version.
+
+Create a new, empty target database using the registered cloud connection if your account permits it:
+
+    CREATE DATABASE sakila_migrated CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+Use another fresh name if desired. Do not use an existing populated database unless you intentionally want to replace/merge its content and have a verified backup.
+
+2. EXPORT THE LOCAL MYSQL DATABASE
+----------------------------------
+In PowerShell, replace YOUR_LOCAL_USER and local_database with the local MySQL login/database. The --password option prompts securely:
+
+    mysqldump.exe --host=localhost --user=YOUR_LOCAL_USER --password --single-transaction --routines --events --triggers --hex-blob --set-gtid-purged=OFF --no-tablespaces --default-character-set=utf8mb4 --result-file="C:\Users\52332\e2e-data-engineering\mysql-export.sql" local_database
+
+Use --single-transaction for a consistent snapshot of InnoDB tables. It does not lock non-transactional tables; pause writes or arrange a maintenance window if the database contains non-InnoDB tables. Check mysqldump's exit code and ensure the output file exists and has a plausible size. If mysqldump.exe is not in PATH, use its full executable path.
+
+The dump can contain a USE local_database statement. Before importing into a differently named target, inspect mysql-export.sql in a text editor and ensure any USE statement targets sakila_migrated. Do not blindly import if it would select an existing cloud database. If the dump contains CREATE DATABASE or USE statements, adjust those to the intended new database before proceeding.
+
+3. IMPORT INTO CLOUD MARIADB OVER VERIFIED TLS
+------------------------------------------------
+The following uses the installed MySQL 8 client and the provided CA bundle. Replace the database name if you chose another destination. The command prompts for the rotated cloud password:
+
+    mysql.exe --no-defaults --host=serverless-us-east-2.sysp0000.db1.skysql.com --port=4007 --user=dbpwf20433812 --database=sakila_migrated --ssl-mode=VERIFY_IDENTITY --ssl-ca="C:\Users\52332\e2e-data-engineering\mariadb-ca-bundle.pem" --password
+
+Enter the password at the prompt. Once connected, run:
+
+    SOURCE C:/Users/52332/e2e-data-engineering/mysql-export.sql;
+
+The dump's USE statement takes precedence over the selected database. This is why the dump must be inspected and changed to the intended empty target first. If import errors mention unsupported MySQL syntax/collation, stop, adapt the dump for the target MariaDB version, and retry into a clean target. Do not disable TLS certificate/hostname verification to work around unrelated import or login errors.
+
+4. VALIDATE BEFORE APPLICATION CUTOVER
+--------------------------------------
+- Compare table names and row counts between local MySQL and the cloud target.
+- Compare key totals, primary/foreign keys, indexes, auto-increment values, and sample records.
+- Test application reads and writes against the cloud copy using a least-privilege account.
+- If the source received writes during/after export, schedule downtime or use replication/change-data-capture to capture changes before final cutover.
+- Update application connection settings only after validation. Keep the source and a secure backup available for rollback until the migration is accepted.
+
+5. CLEAN UP
+-----------
+After validation and the retention period, securely remove the dump file and rotate any temporary credentials. Never store passwords in this guide or in a repository.

@@ -1,0 +1,138 @@
+run from local terminal
+ollama run qwen2.5-coder:7b 
+
+https://github.com/settings/billing
+
+
+Certainly! Here's the code again for you to copy and paste into a Python script:
+
+```python
+from coinbase_pro.client import Client
+
+# Replace these with your actual API key and secret
+api_key = 'YOUR_API_KEY'
+api_secret = 'YOUR_API_SECRET'
+passphrase = 'YOUR_PASSPHRASE'
+
+# Initialize the client
+client = Client(api_key, api_secret, passphrase)
+
+# Get account information
+accounts = client.get_accounts()
+
+# Print the account information
+for account in accounts:
+    print(f"Account ID: {account.id}")
+    print(f"Currency: {account.currency}")
+    print(f"Balance: {account.balance}")
+    print(f"Hold Balance: {account.hold}")
+    print(f"Available Balance: {account.available}")
+    print(f"Pending Balance: {account.pending}")
+    print("-" * 40)
+```
+
+Copy the above code and paste it into your Python environment or a new Python file. Remember to replace 
+`'YOUR_API_KEY'`, `'YOUR_API_SECRET'`, and `'YOUR_PASSPHRASE'` with your actual Coinbase API key, secret, and 
+passphrase.
+
+
+Copy the above code and paste it into your Python environment or a new Python file. Remember to replace 
+`'YOUR_API_KEY'`, `'YOUR_API_SECRET'`, and `'YOUR_PASSPHRASE'` with your actual Coinbase API key, secret, and 
+passphrase.
+
+>>> conver the code with secure use of API key and secret
+When dealing with API keys and secrets, it's crucial to handle them securely. One common method is to store them in 
+environment variables. Here's how you can modify the code to use environment variables to store your API key and 
+secret:
+
+1. Install the `coinbase-pro-python` package if you haven't already:
+
+    ```bash
+    pip install coinbase-pro-python
+    ```
+
+2. Create a Python script to read your API key and secret from environment variables and interact with the Coinbase 
+API:
+
+    ```python
+    from coinbase_pro.client import Client
+    import os
+
+    # Get API key, secret, and passphrase from environment variables
+    api_key = os.getenv('COINBASE_API_KEY')
+    api_secret = os.getenv('COINBASE_API_SECRET')
+    passphrase = os.getenv('COINBASE_PASSPHRASE')
+
+    if not api_key or not api_secret or not passphrase:
+        raise EnvironmentError("API key, secret, and passphrase must be set as environment variables.")
+
+    # Initialize the client
+    client = Client(api_key, api_secret, passphrase)
+
+    # Get account information
+    accounts = client.get_accounts()
+
+    # Print the account information
+    for account in accounts:
+        print(f"Account ID: {account.id}")
+        print(f"Currency: {account.currency}")
+        print(f"Balance: {account.balance}")
+        print(f"Hold Balance: {account.hold}")
+        print(f"Available Balance: {account.available}")
+        print(f"Pending Balance: {account.pending}")
+        print("-" * 40)
+    ```
+
+3. Set the environment variables on your system. This can be done differently depending on your operating system:
+
+    - **Windows**: You can set environment variables in the System Properties dialog or by using the `set` command 
+in the command prompt.
+    
+    - **macOS/Linux**: You can set environment variables in your shell configuration file (e.g., `.bashrc`, 
+`.bash_profile`, `.zshrc`). For example:
+
+        ```bash
+        export COINBASE_API_KEY='YOUR_API_KEY'
+        export COINBASE_API_SECRET='YOUR_API_SECRET'
+        export COINBASE_PASSPHRASE='YOUR_PASSPHRASE'
+        ```
+
+        After setting the environment variables, reload your shell configuration:
+
+        ```bash
+        source ~/.bashrc  # or source ~/.bash_profile, ~/.zshrc, etc.
+        ```
+
+By using environment variables to store your API key and secret, you keep your credentials secure and avoid 
+hardcoding them in your script.
+
+>>> copy to notepad
+Certainly! Here's the code again for you to copy and paste into a Python script:
+
+```python
+from coinbase_pro.client import Client
+import os
+
+# Get API key, secret, and passphrase from environment variables
+api_key = os.getenv('COINBASE_API_KEY')
+api_secret = os.getenv('COINBASE_API_SECRET')
+passphrase = os.getenv('COINBASE_PASSPHRASE')
+
+if not api_key or not api_secret or not passphrase:
+    raise EnvironmentError("API key, secret, and passphrase must be set as environment variables.")
+
+# Initialize the client
+client = Client(api_key, api_secret, passphrase)
+
+# Get account information
+accounts = client.get_accounts()
+
+# Print the account information
+for account in accounts:
+    print(f"Account ID: {account.id}")
+    print(f"Currency: {account.currency}")
+    print(f"Balance: {account.balance}")
+    print(f"Hold Balance: {account.hold}")
+    print(f"Available Balance: {account.available}")
+    print(f"Pending Balance: {account.pending}")
+    print("-" * 40)

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sakila Database ER Diagram</title>
+<style>
+  @page { size: 18in 9in; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; width: 18in; height: 9in; }
+  body { font-family: Arial, Helvetica, sans-serif; color: #172033; }
+  svg { display: block; width: 18in; height: 9in; background: #f8fafc; }
+  .title { font-size: 34px; font-weight: 700; fill: #102a43; }
+  .subtitle { font-size: 16px; fill: #526579; }
+  .table { fill: #fff; stroke: #8da2b8; stroke-width: 2; }
+  .table-head { fill: #e8f1fb; }
+  .table-name { font-size: 19px; font-weight: 700; fill: #123b5d; }
+  .field { font-size: 14px; fill: #334e68; }
+  .key-label { font-size: 12px; font-weight: 700; fill: #627d98; }
+  .edge { fill: none; stroke: #536d82; stroke-width: 2; }
+  .edge-label-bg { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1; }
+  .edge-label { font-size: 12px; font-weight: 600; fill: #40566b; text-anchor: middle; }
+  .legend { font-size: 14px; fill: #526579; }
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 900" role="img" aria-label="Sakila database entity relationship diagram">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#536d82"/>
+    </marker>
+  </defs>
+  <text x="60" y="48" class="title">Sakila Database — Entity Relationship Diagram</text>
+  <text x="60" y="76" class="subtitle">Tables, primary keys, foreign keys, and detected foreign-key relationships</text>
+
+  <!-- Relationships are drawn behind the table cards. -->
+  <g class="edge" marker-end="url(#arrow)">
+    <path d="M290 159 H350"/>
+    <path d="M580 159 H640"/>
+    <path d="M870 159 H930"/>
+    <path d="M290 458 H350"/>
+    <path d="M290 480 H350"/>
+    <path d="M580 469 H640"/>
+    <path d="M870 469 H930"/>
+    <path d="M290 779 H350"/>
+    <path d="M465 528 V720"/>
+    <path d="M870 779 H930"/>
+    <path d="M465 528 V610 H1045 V720"/>
+    <path d="M1045 218 V410"/>
+    <path d="M1045 218 V300 H1335 V410"/>
+    <path d="M1510 528 V600 H1045 V528"/>
+    <path d="M1625 528 V630 H1335 V528"/>
+    <path d="M1160 469 H1220"/>
+    <path d="M755 218 V270 H1780 V469 H1740"/>
+    <path d="M1510 528 V590 H1420 V720"/>
+    <path d="M1450 779 H1475 V469 H1510"/>
+    <path d="M755 218 V270 H1760 V779 H1450"/>
+    <path d="M1335 720 V660 H1760 V360 H1045 V218"/>
+    <path d="M1220 760 H1180 V650 H755 V528"/>
+  </g>
+  <g>
+    <g transform="translate(320 136)"><rect class="edge-label-bg" x="-38" y="-13" width="76" height="22" rx="6"/><text class="edge-label" y="3">country_id</text></g>
+    <g transform="translate(610 136)"><rect class="edge-label-bg" x="-30" y="-13" width="60" height="22" rx="6"/><text class="edge-label" y="3">city_id</text></g>
+    <g transform="translate(900 136)"><rect class="edge-label-bg" x="-40" y="-13" width="80" height="22" rx="6"/><text class="edge-label" y="3">address_id</text></g>
+    <g transform="translate(320 446)"><rect class="edge-label-bg" x="-38" y="-13" width="76" height="22" rx="6"/><text class="edge-label" y="3">language_id</text></g>
+    <g transform="translate(610 446)"><rect class="edge-label-bg" x="-29" y="-13" width="58" height="22" rx="6"/><text class="edge-label" y="3">film_id</text></g>
+    <g transform="translate(900 446)"><rect class="edge-label-bg" x="-36" y="-13" width="72" height="22" rx="6"/><text class="edge-label" y="3">inventory_id</text></g>
+    <g transform="translate(320 756)"><rect class="edge-label-bg" x="-29" y="-13" width="58" height="22" rx="6"/><text class="edge-label" y="3">actor_id</text></g>
+    <g transform="translate(475 620)"><rect class="edge-label-bg" x="-29" y="-13" width="58" height="22" rx="6"/><text class="edge-label" y="3">film_id</text></g>
+    <g transform="translate(900 756)"><rect class="edge-label-bg" x="-48" y="-13" width="96" height="22" rx="6"/><text class="edge-label" y="3">category_id</text></g>
+    <g transform="translate(750 590)"><rect class="edge-label-bg" x="-29" y="-13" width="58" height="22" rx="6"/><text class="edge-label" y="3">film_id</text></g>
+    <g transform="translate(1060 310)"><rect class="edge-label-bg" x="-40" y="-13" width="80" height="22" rx="6"/><text class="edge-label" y="3">customer_id</text></g>
+    <g transform="translate(1340 286)"><rect class="edge-label-bg" x="-40" y="-13" width="80" height="22" rx="6"/><text class="edge-label" y="3">customer_id</text></g>
+    <g transform="translate(1290 588)"><rect class="edge-label-bg" x="-36" y="-13" width="72" height="22" rx="6"/><text class="edge-label" y="3">staff_id</text></g>
+    <g transform="translate(1478 588)"><rect class="edge-label-bg" x="-36" y="-13" width="72" height="22" rx="6"/><text class="edge-label" y="3">staff_id</text></g>
+    <g transform="translate(1550 286)"><rect class="edge-label-bg" x="-40" y="-13" width="80" height="22" rx="6"/><text class="edge-label" y="3">address_id</text></g>
+    <g transform="translate(1490 610)"><rect class="edge-label-bg" x="-54" y="-13" width="108" height="22" rx="6"/><text class="edge-label" y="3">manager_staff_id</text></g>
+    <g transform="translate(1474 650)"><rect class="edge-label-bg" x="-31" y="-13" width="62" height="22" rx="6"/><text class="edge-label" y="3">store_id</text></g>
+    <g transform="translate(1754 330)"><rect class="edge-label-bg" x="-31" y="-13" width="62" height="22" rx="6"/><text class="edge-label" y="3">store_id</text></g>
+    <g transform="translate(1100 674)"><rect class="edge-label-bg" x="-29" y="-13" width="58" height="22" rx="6"/><text class="edge-label" y="3">film_id</text></g>
+    <g transform="translate(1000 650)"><rect class="edge-label-bg" x="-31" y="-13" width="62" height="22" rx="6"/><text class="edge-label" y="3">store_id</text></g>
+  </g>
+
+  <g transform="translate(60 100)"><rect class="table" width="230" height="118" rx="8"/><path class="table-head" d="M68 0 H222 Q230 0 230 8 V38 H0 V8 Q0 0 8 0 Z"/><text class="table-name" x="12" y="26">country</text><text class="key-label" x="12" y="62">PK</text><text class="field" x="42" y="62">country_id</text></g>
+  <g transform="translate(350 100)"><rect class="table" width="230" height="118" rx="8"/><path class="table-head" d="M68 0 H222 Q230 0 230 8 V38 H0 V8 Q0 0 8 0 Z"/><text class="table-name" x="12" y="26">city</text><text class="key-label" x="12" y="62">PK</text><text class="field" x="42" y="62">city_id</text><text class="key-label" x="12" y="88">FK</text><text class="field" x="42" y="88">country_id</text></g>
+  <g transform="translate(640 100)"><rect class="table" width="230" height="118" rx="8"/><path class="table-head" d="M68 0 H222 Q230 0 230 8 V38 H0 V8 Q0 0 8 0 Z"/><text class="table-name" x="12" y="26">address</text><text class="key-label" x="12" y="62">PK</text><text class="field" x="42" y="62">address_id</text><text class="key-label" x="12" y="88">FK</text><text class="field" x="42" y="88">city_id</text></g>
+  <g transform="translate(930 100)"><rect class="table" width="230" height="118" rx="8"/><path class="table-head" d="M68 0 H222 Q230 0 230 8 V38 H0 V8 Q0 0 8 0 Z"/><text class="table-name" x="12" y="26">customer</text><text class="key-label" x="12" y="62">PK</text><text class="field" x="42" y="62">customer_id</text><text class="key-label" x="12" y="88">FK</text><text class="field" x="42" y="88">address_id, store_id</text></g>
+  <g transform="translate(1220 100)"><rect class="table" width="230" height="118" rx="8"/><path class="table-head" d="M68 0 H222 Q230 0 230 8 V38 H0 V8 Q0 0 8 0 Z"/><text class="table-name" x="12" y="26">film_text</text><text class="key-label" x="12" y="62">PK</text><text class="field" x="42" y="62">film_id</text><text class="field" x="12" y="88">No foreign key reported</text></g>
+  <g transform="translate(1510 100)"><rect class="table" width="230" height="118" rx="8"/><path class="table-head" d="M68 0 H222 Q230 0 230 8 V38 H0 V8 Q0 0 8 0 Z"/><text class="table-name" x="12" y="26">country1</text><text class="field" x="12" y="70">No key or foreign key reported</text></g>
+
+  <g transform="translate(60 410)"><rect class="table" width="230" height="118" rx="8"/><path class="table-head" d="M68 0 H222 Q230 0 230 8 V38 H0 V8 Q0 0 8 0 Z"/><text class="table-name" x="12" y="26">language</text><text class="key-label" x="12" y="62">PK</text><text class="field" x="42" y="62">language_id</text></g>
+  <g transform="translate(350 410)"><rect class="table" width="230" height="118" rx="8"/><path class="table-head" d="M68 0 H222 Q230 0 230 8 V38 H0 V8 Q0 0 8 0 Z"/><text class="table-name" x="12" y="26">film</text><text class="key-label" x="12" y="62">PK</text><text class="field" x="42" y="62">film_id</text><text class="key-label" x="12" y="88">FK</text><text class="field" x="42" y="88">language_id, original_language_id</text></g>
+  <g transform="translate(640 410)"><rect class="table" width="230" height="118" rx="8"/><path class="table-head" d="M68 0 H222 Q230 0 230 8 V38 H0 V8 Q0 0 8 0 Z"/><text class="table-name" x="12" y="26">inventory</text><text class="key-label" x="12" y="62">PK</text><text class="field" x="42" y="62">inventory_id</text><text class="key-label" x="12" y="88">FK</text><text class="field" x="42" y="88">film_id, store_id</text></g>
+  <g transform="translate(930 410)"><rect class="table" width="230" height="118" rx="8"/><path class="table-head" d="M68 0 H222 Q230 0 230 8 V38 H0 V8 Q0 0 8 0 Z"/><text class="table-name" x="12" y="26">rental</text><text class="key-label" x="12" y="62">PK</text><text class="field" x="42" y="62">rental_id</text><text class="key-label" x="12" y="88">FK</text><text class="field" x="42" y="88">customer_id, inventory_id, staff_id</text></g>
+  <g transform="translate(1220 410)"><rect class="table" width="230" height="118" rx="8"/><path class="table-head" d="M68 0 H222 Q230 0 230 8 V38 H0 V8 Q0 0 8 0 Z"/><text class="table-name" x="12" y="26">payment</text><text class="key-label" x="12" y="62">PK</text><text class="field" x="42" y="62">payment_id</text><text class="key-label" x="12" y="88">FK</text><text class="field" x="42" y="88">customer_id, rental_id, staff_id</text></g>
+  <g transform="translate(1510 410)"><rect class="table" width="230" height="118" rx="8"/><path class="table-head" d="M68 0 H222 Q230 0 230 8 V38 H0 V8 Q0 0 8 0 Z"/><text class="table-name" x="12" y="26">staff</text><text class="key-label" x="12" y="62">PK</text><text class="field" x="42" y="62">staff_id</text><text class="key-label" x="12" y="88">FK</text><text class="field" x="42" y="88">address_id, store_id</text></g>
+
+  <g transform="translate(60 720)"><rect class="table" width="230" height="118" rx="8"/><path class="table-head" d="M68 0 H222 Q230 0 230 8 V38 H0 V8 Q0 0 8 0 Z"/><text class="table-name" x="12" y="26">actor</text><text class="key-label" x="12" y="62">PK</text><text class="field" x="42" y="62">actor_id</text></g>
+  <g transform="translate(350 720)"><rect class="table" width="230" height="118" rx="8"/><path class="table-head" d="M68 0 H222 Q230 0 230 8 V38 H0 V8 Q0 0 8 0 Z"/><text class="table-name" x="12" y="26">film_actor</text><text class="key-label" x="12" y="62">PK, FK</text><text class="field" x="58" y="62">actor_id, film_id</text></g>
+  <g transform="translate(640 720)"><rect class="table" width="230" height="118" rx="8"/><path class="table-head" d="M68 0 H222 Q230 0 230 8 V38 H0 V8 Q0 0 8 0 Z"/><text class="table-name" x="12" y="26">category</text><text class="key-label" x="12" y="62">PK</text><text class="field" x="42" y="62">category_id</text></g>
+  <g transform="translate(930 720)"><rect class="table" width="230" height="118" rx="8"/><path class="table-head" d="M68 0 H222 Q230 0 230 8 V38 H0 V8 Q0 0 8 0 Z"/><text class="table-name" x="12" y="26">film_category</text><text class="key-label" x="12" y="62">PK, FK</text><text class="field" x="58" y="62">film_id, category_id</text></g>
+  <g transform="translate(1220 720)"><rect class="table" width="230" height="118" rx="8"/><path class="table-head" d="M68 0 H222 Q230 0 230 8 V38 H0 V8 Q0 0 8 0 Z"/><text class="table-name" x="12" y="26">store</text><text class="key-label" x="12" y="62">PK</text><text class="field" x="42" y="62">store_id</text><text class="key-label" x="12" y="88">FK</text><text class="field" x="42" y="88">address_id, manager_staff_id</text></g>
+
+  <text x="60" y="875" class="legend">PK = primary key · FK = foreign key · country1 and film_text have no foreign-key constraints reported in the database metadata.</text>
+</svg>
+</body>
+</html>
