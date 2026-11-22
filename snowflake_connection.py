@@ -62,7 +62,7 @@ def get_snowflake_connection():
         warehouse=os.environ.get("SNOWFLAKE_WAREHOUSE"),
         database=os.environ.get("SNOWFLAKE_DATABASE"),
         schema=os.environ.get("SNOWFLAKE_SCHEMA"),
-        role=os.environ.get("SNOWFLAKE_ROLE") ",
+        role=os.environ.get("SNOWFLAKE_ROLE", "MY_SERVICE_ROLE"),
     )
 
 
@@ -76,7 +76,7 @@ def run_query(query: str):
 
 def main():
     #sample_query = "SELECT current_version() AS version"
-    sample_query = "select REVIEWER_NAME,REVIEW_TEXT from AIRBNB.DEV.FCT_REVIEWS fetch first 3 rows only"; 
+    sample_query = "select REVIEWER_NAME,REVIEW_TEXT from AIRBNB.DEV.FCT_REVIEWS fetch first 10 rows only"; 
     try:
         rows = run_query(sample_query)
         print("Snowflake connection successful.")
